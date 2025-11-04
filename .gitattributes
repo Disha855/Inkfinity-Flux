@@ -1,2 +1,416 @@
-# Auto detect text files and perform LF normalization
+import React, { useState, useEffect } from "react";
+
+export default function InkfinityFlux() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [formData, setFormData] = useState({ name: "", email: "", project: "" });
+  const [formErrors, setFormErrors] = useState({});
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const services = [
+    { title: "Branding & Logos", desc: "Minimal, bold logos that tell your story.", icon: "🎨" },
+    { title: "Posters & Flyers", desc: "Eye-catching print and digital layouts.", icon: "📄" },
+    { title: "Social Media Kits", desc: "Optimized assets for all platforms.", icon: "📱" },
+    { title: "Custom Illustrations", desc: "Unique art that elevates your vibe.", icon: "✨" },
+  ];
+
+  const reviews = [
+    { name: "Ava R.", text: "Inkfinity Flux nailed our brand look. Sleek work!", rating: 5 },
+    { name: "Rohit S.", text: "Quick, professional, and the designs pop.", rating: 5 },
+    { name: "Maya K.", text: "Clean aesthetic, fast turnaround. Highly recommend!", rating: 5 },
+  ];
+
+  const tools = ["Adobe Illustrator", "Photoshop", "Figma", "Procreate"];
+
+  const smoothScroll = (e, target) => {
+    e.preventDefault();
+    const element = document.querySelector(target);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      setMobileMenuOpen(false);
+    }
+  };
+
+  const validateForm = () => {
+    const errors = {};
+    if (!formData.name.trim()) errors.name = "Name is required";
+    if (!formData.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Email is invalid";
+    }
+    if (!formData.project.trim()) errors.project = "Project details are required";
+    return errors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const errors = validateForm();
+    if (Object.keys(errors).length === 0) {
+      window.location.href = mailto:inkfinityflux@gmail.com?subject=Design Inquiry from ${formData.name}&body=Email: ${formData.email}%0D%0A%0D%0AProject Details:%0D%0A${formData.project};
+      setFormData({ name: "", email: "", project: "" });
+      setFormErrors({});
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 3000);
+    } else {
+      setFormErrors(errors);
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (formErrors[e.target.name]) {
+      setFormErrors({ ...formErrors, [e.target.name]: "" });
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-black text-white antialiased overflow-x-hidden">
+      {/* Animated background */}
+      <div className="fixed inset-0 opacity-30 pointer-events-none">
+        <div className="absolute top-20 left-10 w-96 h-96 bg-green-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-green-300/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }}></div>
+      </div>
+
+      <div className="relative max-w-6xl mx-auto px-6 py-6">
+        {/* Header */}
+        <header className={fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-black/90 backdrop-blur-lg shadow-lg" : "bg-transparent"}}>
+          <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#home" onClick={(e) => smoothScroll(e, "#home")} className="flex items-center gap-3 group">
+              <Logo />
+              <div className="leading-none">
+                <h1 className="text-xl font-bold tracking-wide group-hover:text-green-300 transition-colors">Inkfinity Flux</h1>
+                <p className="text-xs text-green-200/60">Design • Brand • Visual Poetry</p>
+              </div>
+            </a>
+
+            <nav className="hidden md:flex gap-6 items-center text-sm">
+              {["Home", "About", "Services", "Reviews", "Offers", "Contact"].map((item) => (
+                <a
+                  key={item}
+                  href={#${item.toLowerCase()}}
+                  onClick={(e) => smoothScroll(e, #${item.toLowerCase()})}
+                  className="text-green-200/85 hover:text-green-300 transition-colors relative group"
+                >
+                  {item}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-300 group-hover:w-full transition-all duration-300"></span>
+                </a>
+              ))}
+              <a href="#contact" onClick={(e) => smoothScroll(e, "#contact")} className="px-4 py-2 rounded-lg border border-green-900/30 hover:border-green-500/50 transition-all">Hire Me</a>
+            </nav>
+
+            {/* Mobile Menu Button */}
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden p-2 rounded-md border border-green-900/20 hover:border-green-500/50 transition-all">
+              <div className="space-y-1.5">
+                <span className={block w-6 h-0.5 bg-green-300 transition-transform duration-300 ${mobileMenuOpen ? "rotate-45 translate-y-2" : ""}}></span>
+                <span className={block w-6 h-0.5 bg-green-300 transition-opacity duration-300 ${mobileMenuOpen ? "opacity-0" : ""}}></span>
+                <span className={block w-6 h-0.5 bg-green-300 transition-transform duration-300 ${mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}}></span>
+              </div>
+            </button>
+          </div>
+
+          {/* Mobile Menu */}
+          <div className={md:hidden overflow-hidden transition-all duration-300 ${mobileMenuOpen ? "max-h-96" : "max-h-0"}}>
+            <nav className="px-6 py-4 space-y-3 bg-black/95 border-t border-green-900/20">
+              {["Home", "About", "Services", "Reviews", "Offers", "Contact"].map((item) => (
+                <a
+                  key={item}
+                  href={#${item.toLowerCase()}}
+                  onClick={(e) => smoothScroll(e, #${item.toLowerCase()})}
+                  className="block text-green-200/85 hover:text-green-300 transition-colors py-2"
+                >
+                  {item}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </header>
+
+        {/* Home Section */}
+        <section id="home" className="pt-32 pb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6 animate-fadeIn">
+              <h2 className="text-5xl md:text-6xl font-extrabold tracking-tight">
+                Inkfinity Flux
+                <span className="block text-green-300/80 text-3xl font-medium mt-3">Black. Green. Boundless.</span>
+              </h2>
+              <p className="text-gray-300 text-lg max-w-xl leading-relaxed">
+                We craft moody, minimal visuals that punch through the noise. From logos to full brand systems — clean, bold, and unforgettable.
+              </p>
+
+              <div className="flex gap-4 flex-wrap">
+                <a href="#services" onClick={(e) => smoothScroll(e, "#services")} className="btn-primary">See Services</a>
+                <a href="#contact" onClick={(e) => smoothScroll(e, "#contact")} className="btn-outline">Get in touch</a>
+              </div>
+
+              <div className="flex gap-3 pt-4 flex-wrap">
+                {tools.map((tool) => (
+                  <span key={tool} className="px-3 py-1 text-xs bg-green-900/20 border border-green-900/30 rounded-full text-green-200/80">{tool}</span>
+                ))}
+              </div>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-gradient-to-br from-black to-green-950/20 border border-green-900/40 shadow-2xl animate-fadeIn" style={{ animationDelay: "0.2s" }}>
+              <div className="grid grid-cols-2 gap-4">
+                {[1, 2, 3, 4].map((n) => (
+                  <div key={n} className="h-40 rounded-xl overflow-hidden relative group cursor-pointer transform transition-all duration-500 hover:scale-105 hover:shadow-2xl" style={{ background: "linear-gradient(180deg, rgba(8,25,14,0.6), rgba(0,0,0,0.8))" }}>
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="absolute inset-0 flex items-end p-4">
+                      <div className="backdrop-blur-sm bg-black/40 p-2 rounded-md text-sm w-full transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                        <div className="font-semibold">Project {n}</div>
+                        <div className="text-xs text-green-200/60">Poster • Concept</div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* About */}
+        <section id="about" className="py-16">
+          <div className="bg-gradient-to-r from-green-950/20 to-black p-10 rounded-2xl border border-green-900/30 shadow-xl">
+            <h3 className="text-3xl font-bold mb-6">About Inkfinity Flux</h3>
+            <p className="text-gray-300 text-lg leading-relaxed mb-8">
+              I'm a designer who believes in minimal chaos — tight compositions, raw type, and color that breathes. I build visual identities that age well and feel alive. With years of experience across branding, illustration, and digital design, I help brands stand out with purpose and style.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Stat number="5+" label="Years experience" />
+              <Stat number="200+" label="Designs shipped" />
+              <Stat number="100%" label="Client satisfaction" />
+            </div>
+          </div>
+        </section>
+
+        {/* Services */}
+        <section id="services" className="py-16">
+          <h3 className="text-3xl font-bold mb-3">Services</h3>
+          <p className="text-gray-400 text-lg mb-8">Full-service design — brand strategy, asset creation, and ongoing support.</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {services.map((s, i) => (
+              <div
+                key={s.title}
+                className="p-6 rounded-xl bg-gradient-to-br from-green-950/10 to-black border border-green-900/20 hover:border-green-500/50 transform hover:-translate-y-2 transition-all duration-300 cursor-pointer group"
+                style={{ animationDelay: ${i * 0.1}s }}
+              >
+                <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">{s.icon}</div>
+                <div className="text-green-200 font-semibold text-lg">{s.title}</div>
+                <div className="mt-2 text-gray-300 text-sm leading-relaxed">{s.desc}</div>
+                <div className="mt-4">
+                  <a href="#contact" onClick={(e) => smoothScroll(e, "#contact")} className="text-xs font-medium underline text-green-300/80 hover:text-green-300 transition-colors">Hire for this →</a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Reviews */}
+        <section id="reviews" className="py-16">
+          <h3 className="text-3xl font-bold mb-8">What Clients Say</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {reviews.map((r, i) => (
+              <blockquote key={r.name} className="p-6 bg-gradient-to-br from-green-950/10 to-black border border-green-900/20 rounded-xl hover:border-green-500/50 transform hover:scale-105 transition-all duration-300" style={{ animationDelay: ${i * 0.1}s }}>
+                <div className="flex gap-1 mb-3">
+                  {[...Array(r.rating)].map((_, i) => (
+                    <span key={i} className="text-green-400">★</span>
+                  ))}
+                </div>
+                <p className="text-gray-300 leading-relaxed">"{r.text}"</p>
+                <footer className="mt-4 text-green-200/80 font-medium">— {r.name}</footer>
+              </blockquote>
+            ))}
+          </div>
+        </section>
+
+        {/* Offers */}
+        <section id="offers" className="py-16">
+          <h3 className="text-3xl font-bold mb-6">Special Offers</h3>
+          <div className="p-8 rounded-2xl bg-gradient-to-r from-green-900/20 via-green-950/30 to-black border border-green-500/30 shadow-xl">
+            <div className="flex items-start gap-4">
+              <span className="text-4xl">🎉</span>
+              <div>
+                <h4 className="text-xl font-bold text-green-300 mb-2">Launch Special: 50% Off First Logo</h4>
+                <p className="text-gray-300 leading-relaxed">
+                  Exclusive deal for Fiverr clients! Get 50% off on your first logo design. Limited-time slots available. Use code{" "}
+                  <span className="font-mono text-sm px-2 py-1 bg-green-500/20 border border-green-500/30 rounded text-green-200">FIVER50</span> when you contact me.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Contact */}
+        <section id="contact" className="py-16 pb-24">
+          <h3 className="text-3xl font-bold mb-6">Let's Create Together</h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="p-8 rounded-xl bg-gradient-to-br from-green-950/10 to-black border border-green-900/20">
+              <h4 className="font-semibold text-xl mb-4">Get in Touch</h4>
+              <p className="text-gray-300 leading-relaxed mb-6">
+                Send a brief: project type, deadline, budget, and links (if any). I'll get back within 24–48 hours.
+              </p>
+
+              <div className="space-y-4">
+                <div>
+                  <p className="text-sm text-green-200/80 mb-1">Email</p>
+                  <a href="mailto:hello@inkfinityflux.com" className="font-mono text-green-300 hover:text-green-200 transition-colors">hello@inkfinityflux.com</a>
+                </div>
+
+                <div>
+                  <p className="text-sm text-green-200/80 mb-1">Fiverr</p>
+                  <a href="https://www.fiverr.com/yourprofile" target="_blank" rel="noopener noreferrer" className="font-mono text-green-300 hover:text-green-200 transition-colors">fiverr.com/yourprofile</a>
+                </div>
+
+                <div className="pt-4">
+                  <a href="mailto:hello@inkfinityflux.com?subject=Design%20Inquiry" className="btn-primary inline-block">Email Me Directly</a>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-5 p-8 rounded-xl bg-gradient-to-br from-green-950/10 to-black border border-green-900/20">
+              <div>
+                <label className="block text-sm text-gray-300 mb-2">Name *</label>
+                <input
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className={w-full p-3 rounded-lg bg-black/60 border ${formErrors.name ? "border-red-500/50" : "border-green-900/30"} focus:border-green-500/50 focus:outline-none transition-colors text-white}
+                  placeholder="Your name"
+                />
+                {formErrors.name && <p className="text-red-400 text-xs mt-1">{formErrors.name}</p>}
+              </div>
+
+              <div>
+                <label className="block text-sm text-gray-300 mb-2">Email *</label>
+                <input
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={w-full p-3 rounded-lg bg-black/60 border ${formErrors.email ? "border-red-500/50" : "border-green-900/30"} focus:border-green-500/50 focus:outline-none transition-colors text-white}
+                  placeholder="your@email.com"
+                />
+                {formErrors.email && <p className="text-red-400 text-xs mt-1">{formErrors.email}</p>}
+              </div>
+
+              <div>
+                <label className="block text-sm text-gray-300 mb-2">Project Details *</label>
+                <textarea
+                  name="project"
+                  value={formData.project}
+                  onChange={handleChange}
+                  rows={4}
+                  className={w-full p-3 rounded-lg bg-black/60 border ${formErrors.project ? "border-red-500/50" : "border-green-900/30"} focus:border-green-500/50 focus:outline-none transition-colors text-white resize-none}
+                  placeholder="Tell me about your project..."
+                />
+                {formErrors.project && <p className="text-red-400 text-xs mt-1">{formErrors.project}</p>}
+              </div>
+
+              <div className="flex gap-4">
+                <button onClick={handleSubmit} className="btn-primary">Send Message</button>
+                <button onClick={() => { setFormData({ name: "", email: "", project: "" }); setFormErrors({}); }} className="btn-outline">Clear</button>
+              </div>
+
+              {showSuccess && (
+                <div className="p-4 rounded-lg bg-green-500/20 border border-green-500/50 text-green-300 text-sm">
+                  ✓ Opening your email client...
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+
+        <footer className="border-t border-green-900/20 pt-8 pb-6 text-sm text-green-200/60">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>© {new Date().getFullYear()} Inkfinity Flux — All rights reserved.</div>
+            <div className="flex gap-6">
+              <a href="#" className="hover:text-green-300 transition-colors">Instagram</a>
+              <a href="#" className="hover:text-green-300 transition-colors">Behance</a>
+              <a href="#" className="hover:text-green-300 transition-colors">Dribbble</a>
+            </div>
+          </div>
+        </footer>
+      </div>
+
+      {/* Floating Hire Button */}
+      <a href="#contact" onClick={(e) => smoothScroll(e, "#contact")} className="fixed right-6 bottom-6 bg-gradient-to-br from-green-500 to-green-600 text-black px-6 py-3 rounded-full font-bold shadow-2xl hover:shadow-green-500/50 hover:scale-110 transform transition-all duration-300 z-40">
+        Hire Me
+      </a>
+
+      <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn { animation: fadeIn 0.8s ease-out forwards; }
+        .btn-primary {
+          background: linear-gradient(90deg, #0f3d21, #16a34a);
+          color: white;
+          padding: 0.75rem 1.5rem;
+          border-radius: 12px;
+          font-weight: 700;
+          display: inline-block;
+          transition: all 0.3s;
+          cursor: pointer;
+        }
+        .btn-primary:hover {
+          background: linear-gradient(90deg, #16a34a, #22c55e);
+          transform: translateY(-2px);
+          box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
+        }
+        .btn-outline {
+          border: 1px solid rgba(34, 197, 94, 0.3);
+          padding: 0.7rem 1.4rem;
+          border-radius: 12px;
+          display: inline-block;
+          transition: all 0.3s;
+          cursor: pointer;
+        }
+        .btn-outline:hover {
+          border-color: rgba(34, 197, 94, 0.6);
+          background: rgba(34, 197, 94, 0.1);
+        }
+      `}</style>
+    </div>
+  );
+}
+
+function Logo() {
+  return (
+    <div className="w-12 h-12 rounded-lg flex items-center justify-center shadow-lg" style={{ background: "linear-gradient(135deg, #07130e, #062415)" }}>
+      <svg width="36" height="36" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="g1" x1="0" x2="1">
+            <stop offset="0" stopColor="#9ef7b8" />
+            <stop offset="1" stopColor="#16a34a" />
+          </linearGradient>
+        </defs>
+        <rect width="100" height="100" rx="18" fill="#000" />
+        <g transform="translate(12,18) scale(0.75)">
+          <path d="M10 60 C 20 30, 60 30, 70 60" stroke="url(#g1)" strokeWidth="8" strokeLinecap="round" fill="none" />
+          <circle cx="85" cy="24" r="8" fill="#16a34a" />
+          <text x="4" y="92" fill="#9ef7b8" fontSize="22" fontFamily="monospace" fontWeight="700">I&F</text>
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function Stat({ number, label }) {
+  return (
+    <div className="p-6 rounded-xl bg-black/40 border border-green-900/20 hover:border-green-500/50 transition-all duration-300 transform hover:scale-105">
+      <div className="text-3xl font-bold text-green-300 mb-2">{number}</div>
+      <div className="text-sm text-gray-300">{label}</div>
+    </div>
+  );
+}# Auto detect text files and perform LF normalization
 * text=auto
